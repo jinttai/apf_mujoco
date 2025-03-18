@@ -1,0 +1,22 @@
+<mujoco>
+    <asset>
+        <mesh name="link2" file="stls/legacy/link2.stl" />
+        <mesh name="link3" file="stls/legacy/link3.stl" />
+        <mesh name="link4" file="stls/legacy/link4.stl" />
+        <mesh name="link5" file="stls/legacy/link5.stl" />
+        <mesh name="shaft_base" file="stls/legacy/shaft_base.stl" />
+        <mesh name="ee1" file="stls/legacy/ee1.stl" />
+        <mesh name="ee2" file="stls/legacy/ee2.stl" />
+        <mesh name="shaft1" file="stls/legacy/shaft.stl" />
+        <mesh name="shaft2" file="stls/legacy/shaft2.stl" />
+        <mesh name="target" file="stls/KOMPSAT-1.stl"/>
+        <mesh name="v_base" file="stls/v_base.stl" />
+        <mesh name="v_shoulder" file="stls/v_shoulder.stl" />
+        <mesh name="v_upperarm" file="stls/v_upperarm.stl" />
+        <mesh name="v_forearm" file="stls/v_forearm.stl" />
+        <mesh name="v_wrist1" file="stls/v_wrist1.stl" />
+        <mesh name="v_wrist2" file="stls/v_wrist2.stl" />
+        <mesh name="v_wrist3" file="stls/v_wrist3.stl" />
+        <mesh name="cube" file="stls/cube.stl" />
+    </asset>
+</mujoco>

@@ -1,0 +1,88 @@
+<!-- unit quat in mujoco xml is "1 0 0 0"  [ w, x, y, z]-->
+<!-- "0.707107 0 0.707107 0" = [ x: 0, y: 1.5707963(90), z: 0 ]-->
+<!-- "0.5 0.5 -0.5 0.5" = [ x: 1.5707963(90), y: 0, z: 1.5707963(90) ]-->
+<!-- euler sequence xzy-->
+<mujoco>
+    <body name="base_link" pos="0 0 0" euler="0 0 -1.57">
+        <!--base_link is fixed in the base so that the motion of the arm will affect the base-->
+        
+        <inertial pos="0 0 0.142137" mass="0.776" diaginertia="0.08871355 0.019580255 0.087662" />
+        <site name="base_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+        <site name="base_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+        <site name="base_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+
+        <!-- joint 1 : a joint creates motion degrees of freedom between the body where it is defined and the body's parent
+            joint 1 defines the relation of the motions between link1 and link0-->
+        <body name="shoulder_link" pos="0 0 0.240" euler="0 0 0 ">
+        <geom name="v_base_link" pos=" 0 0 -0.240" type="mesh" group="1" mesh="shaft_base" euler="1.57 1.57 0" />
+        <geom name="v_shoulder_link" type="mesh" group="1" mesh="shaft1" euler="-1.57 0 0" />
+
+        <site name="1_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+        <site name="1_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+        <site name="1_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+        <inertial pos="-0.064465 0 0" mass="3.7" diaginertia="0.0067 0.0064 0.0067" />
+            <!-- inertial should be modified-->
+            <joint class="arm1" name="arm:shoulder_pan_joint" axis="0 0 1" pos="0 -0.02561 0" />
+            <body name="upper_arm_link" pos="0 0.277 0" euler="-1.57 0 3.14">
+            <site name="2_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+            <site name="2_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+            <site name="2_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+
+            <inertial pos="0.0 0 0.0" mass="1" diaginertia="1 1 1" />
+            <joint class="arm1" name="arm:shoulder_lift_joint" axis="0 0 1" pos="0 0 0" />
+            <geom name="v_upper_arm_link" type="mesh" group="1" mesh="link2" pos="0.064 0 0" euler="0 -1.57 0" />
+            <geom name="v_upper_arm_link_1" type="mesh" group="1" mesh="shaft1" pos="-0.145 0 0" euler="0 -1.57 0" />    
+
+                <body name="forearm_link" pos="-0.55 0 0" euler="1.57 -1.57 0">
+                    <inertial pos="0.11993 0 0.0265" mass="2.275" fullinertia="0.0025 0.0551 0.0546 0 0.0034 0" />
+                    <joint class="arm1" name="arm:elbow_joint" pos="0 0 0" axis="0 0 1" />
+                    <geom name="v_forearm_link" type="mesh" group="1" mesh="link2" pos="0 0 0.032 " euler="3.14 0 0" />
+                    <geom name="v_forearm_link_1" type="mesh" group="1" mesh="shaft2" pos="-0.0906 0 -0.032" euler="0 1.57 0" />
+                    <site name="3_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+                    <site name="3_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+                    <site name="3_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+                    <body name="wrist_1_link" pos="-0.162 0 0.390 " euler="0 -1.5707963 -1.5707963">
+
+                    <inertial pos="0.0 0 0.0" mass="1" diaginertia="1 1 1" />
+                    <joint class="arm2" name="arm:wrist_1_joint" pos="0 -0.390 0" axis="0 0 1" />
+                    <geom name="v_wrist_1_link" type="mesh" group="1" mesh="link3" pos="0 -0.478 -0.025 " euler="-1.57 0 -1.57"/>
+                    <geom name="v_wrist_1_link_1" type="mesh" group="1" mesh="shaft2" pos="0.039 0 -0.025" euler="0 1.57 0"/>
+                    <site name="4_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+                    <site name="4_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+                    <site name="4_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+                        <body name="wrist_2_link" pos="0.160 0.370 0" euler="1.5707963 1.5707963 0">
+                            <inertial pos="0 0.0018 0.01634" mass="1" diaginertia="0.0012 0.0012 0.0009" />
+                            <joint class="arm2" name="arm:wrist_2_joint" pos="-0.370 0 0" axis="0 0 1" />
+                            <geom name="v_wrist_2_link" type="mesh" group="1" mesh="link4" pos="0 0 0" euler="0 0 0" />
+                            <geom name="v_wrist_2_link_1" type="mesh" group="1" mesh="shaft2" pos="0 0 -0.0385 " euler="0 0 0" />
+                            <site name="5_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+                            <site name="5_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+                            <site name="5_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+                            
+                            <body name="wrist_3_link" pos="0.305 0 -0.160">
+                                <inertial pos="0 0 -0.01159" mass="1" diaginertia="0.0000884489143 0.0000884489143 0.000138534912" />
+                                <joint class="arm2" name="arm:wrist_3_joint" pos="-0.305 0 0" axis="0 0 1" />
+                                <geom name="v_wrist_3_link" type="mesh" group="1" mesh="link5" pos="0 0 0" euler="-1.57 0 0" />
+                                <site name="6_frame:x" pos="0.0618 0 0" size="0.01 0.0618" type="cylinder" rgba="1 0 0 1" euler="0 1.5707963 0" />
+                                <site name="6_frame:y" pos="0 0.0618 0" size="0.01 0.0618" type="cylinder" rgba="0 1 0 1" euler="-1.5707963 0 0" />
+                                <site name="6_frame:z" pos="0 0 0.0618" size="0.01 0.0618" type="cylinder" rgba="0 0 1 1" />
+                                <!-- all coordinates are checked but stl files are incorrect + inertia information should be updated -->
+                                <!-- also , joint axis and position should be rectified-->
+                                <!--body name="tip_frame" pos="0 0 0.06">
+                                </body-->
+                                <body name="endeffector_1" pos="0 0 0" euler="1.57 0 0 ">
+                                    <inertial pos="0 0 0" mass="1" diaginertia="0 0 0"/>
+                                    <geom name="ee_1" type="mesh" group="1" mesh="ee1" pos="0 0 0" euler="0 0 0"/>
+                                    <body name="endeffector_2" pos="0 0 0">
+                                        <inertial pos="0 0 0" mass="1" diaginertia="0 0 0"/>
+                                        <geom name="ee_2" type="mesh" group="1" mesh="ee2" pos="0 0 0" euler="0 -2.09439 0"/>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>                      
+        </body>
+    </body>
+</mujoco>
