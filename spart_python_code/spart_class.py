@@ -29,17 +29,6 @@ def quat_dcm(q):
 
 
 class RobotKinematicsDynamics:
-    """
-    This class consolidates kinematics and dynamics calculations for a
-    floating-base robot manipulator. 
-    The 'robot' dictionary is expected to contain:
-        robot['n_links_joints'] : number of links (and joints)
-        robot['n_q']           : number of generalized coordinates
-        robot['base_link']     : dict with mass, inertia, etc. of base
-        robot['links']         : list of dicts, each with mass, inertia, etc.
-        robot['joints']        : list of dicts describing joint type, axis, etc.
-        robot['con']           : connectivity info for building B-matrices
-    """
     
     def __init__(self, robot):
         """
